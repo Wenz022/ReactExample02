@@ -1,9 +1,11 @@
 const express = require("express");
 const app = express();
 const port = 5000;
-const { User } = require("./models/User");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+
+const config = require("./config/key");
+
+const { User } = require("./models/User");
 
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -11,21 +13,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //application/json
 app.use(bodyParser.json());
 
+const mongoose = require("mongoose");
 mongoose
-  .connect(
-    "mongodb+srv://hjwoo:1234@cluster0.a8bf0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }
-  )
+  .connect(config.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
   .then(() => console.log("MongoDB Connected..."))
   .catch((err) => console.log(err));
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("Hello World! 안녕하세요!");
 });
 // 회원가입 route
 app.post("/register", (req, res) => {
