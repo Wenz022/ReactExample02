@@ -7,6 +7,7 @@ const config = require("./config/key");
 
 const { User } = require("./models/User");
 
+// bodyParser: 클라이언트에서 오는 정보를 서버에서 분석해서 가져오는 것
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -27,6 +28,7 @@ mongoose
 app.get("/", (req, res) => {
   res.send("Hello World! 안녕하세요!");
 });
+
 // 회원가입 route
 app.post("/register", (req, res) => {
   //회원 가입 할떄 필요한 정보들을  client에서 가져오면
